@@ -4,7 +4,7 @@ import { Request, Response } from "express";
 //@route GET /api/contacts
 //@access public
 
-const getContacts = (req: Request, res: Response) => {
+export const getContacts = (req: Request, res: Response) => {
   res.status(200).json({ message: "Get all contacts" });
 };
 
@@ -12,7 +12,13 @@ const getContacts = (req: Request, res: Response) => {
 //@route POST /api/contacts
 //@access public
 
-const createContact = (req: Request, res: Response) => {
+export const createContact = (req: Request, res: Response) => {
+  console.log(req.body);
+  const { name, email, phone } = req.body;
+  if (!name || !email || !phone) {
+    res.status(400);
+    throw new Error("All fields are mandatory!");
+  }
   res.status(201).json({ message: "Create Contact" });
 };
 
@@ -20,7 +26,7 @@ const createContact = (req: Request, res: Response) => {
 //@route GET /api/contacts/:id
 //@access public
 
-const getContact = (req: Request, res: Response) => {
+export const getContact = (req: Request, res: Response) => {
   res.status(200).json({ message: `Get Contact for ${req.params.id}` });
 };
 
@@ -28,7 +34,7 @@ const getContact = (req: Request, res: Response) => {
 //@route PUT /api/contacts/:id
 //@access public
 
-const updateContact = (req: Request, res: Response) => {
+export const updateContact = (req: Request, res: Response) => {
   res.status(200).json({ message: `Update Contact for ${req.params.id}` });
 };
 
@@ -36,14 +42,6 @@ const updateContact = (req: Request, res: Response) => {
 //@route DELETE /api/contacts/:id
 //@access public
 
-const deleteContact = (req: Request, res: Response) => {
+export const deleteContact = (req: Request, res: Response) => {
   res.status(200).json({ message: `Delete Contact for ${req.params.id}` });
-};
-
-module.exports = {
-  getContacts,
-  createContact,
-  getContact,
-  updateContact,
-  deleteContact,
 };
