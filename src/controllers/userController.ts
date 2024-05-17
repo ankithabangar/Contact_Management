@@ -73,8 +73,8 @@ export const loginUser = asyncHandler(async (req: Request, res: Response) => {
 ("");
 //@desc Current user info
 //@route GET /api/users/current
-//@access public
+//@access private
 
 export const currentUser = asyncHandler((req: Request, res: Response) => {
-  res.json({ message: "Current user information" });
+  res.json(req.user);
 });
